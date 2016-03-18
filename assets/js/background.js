@@ -14,7 +14,14 @@
 				});
 				sendResponse({});
 				break;
-
+			case "stop":
+				chrome.tabs.query({active: true}, function(tabs){
+				    chrome.tabs.sendMessage(tabs[0].id, 
+			    	{
+			    		action: "stop_search"
+			    	}, function(response) {});  
+				});
+				break;
 			default:
 				break;
 		}

@@ -1,14 +1,15 @@
 (function(window, jQuery){
 
 	$(document).ready(function() {
+
 		$("#value").on("keyup", function(){
 			if($(this).val() != ""){
-				$("#submit").removeAttr("disabled");
+				$("#start_button").removeAttr("disabled");
 			} else {
-				$("#submit").attr("disabled", "");
+				$("#start_button").attr("disabled", "");
 			}
 		})
-		$("#submit").click(function() {
+		$("#start_button").click(function() {
 			var value = $("#value").val();
 			localStorage.setItem('client_value',value);
 			chrome.extension.sendMessage({
@@ -16,7 +17,15 @@
 			}, function(response) {
 				console.log(response);
 			});
-			window.close();
+			// window.close();
 		});
+
+		$("#stop_button").click(function(){
+			chrome.extension.sendMessage({
+				msg: "stop"
+			}, function(response) {
+				console.log(response);
+			});
+		})
 	});
 })(window, $);

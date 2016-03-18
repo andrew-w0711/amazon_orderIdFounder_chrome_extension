@@ -2,11 +2,13 @@
 
 	$(document).ready(function() {
 		var timer;
-		$("select[name=itemsPerPage]").val(100);
-		$("input[type=image]").last().trigger("click");
+		
 		chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			switch(request.action) {
 				case "start_search":
+					$("select[name=itemsPerPage]").val(100);
+					$("input[type=image]").last().trigger("click");
+
 					var search_text = request.data.value;
 
 					timer = setInterval(function(){
@@ -39,6 +41,11 @@
 					
 					break;
 
+				case "stop_search":
+					console.log("stop_search");
+					$("#myo-table .data-display span.tiny").last().children("a")[1].click();
+					clearInterval(timer);
+					break;
 				default:
 					break;
 			}
